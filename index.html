@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Parallax Wallpaper - Face Tracking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p id="loading-text">Loading model...</p>
+        </div>
+    </div>
+
+    <!-- Main Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- Webcam Video (hidden) -->
+    <video id="webcam" autoplay playsinline style="display: none;"></video>
+
+    <!-- Debug Overlay -->
+    <canvas id="debug-canvas"></canvas>
+
+    <!-- Control Panel -->
+    <div id="control-panel" class="panel">
+        <div class="panel-header">
+            <h2>⚙️ Controls</h2>
+            <button id="toggle-panel" class="btn-icon">−</button>
+        </div>
+
+        <div class="panel-content">
+            <!-- Start/Stop Controls -->
+            <div class="control-group">
+                <button id="start-btn" class="btn-primary">🎥 Start</button>
+                <button id="stop-btn" class="btn-secondary" disabled>⏹️ Stop</button>
+            </div>
+
+            <!-- Sensitivity Control -->
+            <div class="control-group">
+                <label for="sensitivity">
+                    <span>Sensitivity</span>
+                    <span id="sensitivity-value">60</span>
+                </label>
+                <input type="range" id="sensitivity" min="0" max="100" value="60">
+            </div>
+
+            <!-- Depth Control -->
+            <div class="control-group">
+                <label for="depth">
+                    <span>Depth</span>
+                    <span id="depth-value">35</span>
+                </label>
+                <input type="range" id="depth" min="0" max="50" value="35">
+            </div>
+
+            <!-- Smoothing Control -->
+            <div class="control-group">
+                <label for="smoothing">
+                    <span>Smoothing</span>
+                    <span id="smoothing-value">4</span>
+                </label>
+                <input type="range" id="smoothing" min="0" max="10" value="4">
+            </div>
+
+            <!-- Grid Size Control -->
+            <div class="control-group">
+                <label for="grid-size">
+                    <span>Grid Size</span>
+                    <span id="grid-size-value">20</span>
+                </label>
+                <input type="range" id="grid-size" min="10" max="40" value="20">
+            </div>
+
+            <!-- Layer Count Control -->
+            <div class="control-group">
+                <label for="layer-count">
+                    <span>Layer Count</span>
+                    <span id="layer-count-value">5</span>
+                </label>
+                <input type="range" id="layer-count" min="3" max="8" value="5">
+            </div>
+
+            <!-- Performance Mode -->
+            <div class="control-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="performance-mode">
+                    <span>Performance Mode</span>
+                </label>
+            </div>
+
+            <!-- Debug Mode -->
+            <div class="control-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="debug-mode">
+                    <span>Debug Mode</span>
+                </label>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat-item">
+                    <span>FPS:</span>
+                    <span id="fps-display">0</span>
+                </div>
+                <div class="stat-item">
+                    <span>Position:</span>
+                    <span id="position-display">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="error-modal" class="modal">
+        <div class="modal-content">
+            <h2>❌ Error</h2>
+            <p id="error-message"></p>
+            <button id="error-close" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <!-- Info Panel -->
+    <div id="info-panel">
+        <p>💡 <strong>Tip:</strong> Move your head in front of the camera</p>
+        <p id="face-status" style="color: #ff6666;">⚪ Waiting for face detection...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/face_detection.js" crossorigin="anonymous"></script>
+
+    <script src="faceTracker.js"></script>
+    <script src="renderer3D.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
